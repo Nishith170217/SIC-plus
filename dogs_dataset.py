@@ -157,34 +157,24 @@ class DOGS(Dataset):
     def __init__(self, path: Path, transform: torch.nn.Module):
         super().__init__()
         self.path = path
-        basepath = path.parent.parent / "Images"
-
+        self.basepath = path.parent.parent / "Images"
         self.df = pd.read_csv(path)
-        self._images = []
-        self.targets = []
-        n_gray = 0
-        for _, x in self.df.iterrows():
-            with Image.open(basepath / x.file_list, 'r') as img:
-                img.load()
-            if img.mode == 'L' or img.mode == 'RGBA':
-                img = img.convert('RGB')
-                n_gray += 1
-            self._images.append(img)
-            self.targets.append(x.labels)
-        LOG.info(f"Number of grayscale images: {n_gray}\nTotal images: {len(self._images)}")
-
+        self.targets = self.df.labels.tolist()
+        self.file_paths = self.df.file_list.tolist()
         self.transform = transform
 
     def __len__(self):
-        return len(self._images)
+        return len(self.targets)
 
     def __getitem__(self, idx):
-        img = copy.deepcopy(self._images[idx])
-        label = self.targets[idx]
-        return self.transform(img), label
+        with Image.open(self.basepath / self.file_paths[idx], 'r') as img:
+            img.load()
+        if img.mode == 'L' or img.mode == 'RGBA':
+            img = img.convert('RGB')
+        return self.transform(img), self.targets[idx]
 
 
-def get_dogs_dataloader(data_dir, batch_size, num_workers, is_bcos=False):
+def get_dogs_dataloader(data_dir, batch_size, num_workers, is_bcos=False, support_batch_size=None, val_batch_size=None):
     data_dir = Path(data_dir)
     generator = torch.Generator().manual_seed(42)
     eval_data = DOGS(data_dir / "valid.csv", EvalTransform(is_bcos=is_bcos))
@@ -203,13 +193,13 @@ def get_dogs_dataloader(data_dir, batch_size, num_workers, is_bcos=False):
 
     val_loader = DataLoader(
             eval_data,
-            batch_size=batch_size,
+            batch_size=val_batch_size if val_batch_size else batch_size,
             num_workers=num_workers,
         )
 
     support_loader = DataLoader(
             support_data,
-            batch_size=batch_size,
+            batch_size=support_batch_size if support_batch_size else batch_size,
             num_workers=num_workers,
         )
 

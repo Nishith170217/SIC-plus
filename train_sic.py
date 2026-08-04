@@ -78,6 +78,8 @@ def main(args=None):
     parser.add_argument("--lr", type=float, default=0.0001, help="Learning rate")
     parser.add_argument("--n_way", type=int, default=None, help="Reduces number of classes sampled for training on small GPU memory to n_way classes")
     parser.add_argument("--results_dir", type=str, default="results", help="Directory to save the results into")
+    parser.add_argument("--resume", action="store_true", help="Resume training from checkpoint")
+    parser.add_argument("--accumulation_steps", type=int, default=32, help="Gradient accumulation steps")
     args = parser.parse_args(args=args)
 
     Path(args.results_dir).mkdir(parents=True, exist_ok=True)
@@ -86,7 +88,7 @@ def main(args=None):
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     n_classes = 120
-    train_loader, val_loader, support_loader = get_dogs_dataloader(args.data_dir, batch_size=args.batch_size, num_workers=8, is_bcos=True)
+    train_loader, val_loader, support_loader = get_dogs_dataloader(args.data_dir, batch_size=args.batch_size, num_workers=8, is_bcos=True, support_batch_size=4, val_batch_size=1)
 
     # initialize featurizer
     featurizer = BcosEncoderWrapper(resnet50_long(pretrained=True))
@@ -103,25 +105,47 @@ def main(args=None):
         device=device,
     )
     # sanity check
+        # sanity check
+         # sanity check
     sic.eval()
-    sic.precompute()
+    with torch.no_grad():
+        sic.precompute()
 
     criterion = torch.nn.BCEWithLogitsLoss(pos_weight=None)  # add pos_weight if required
     to_one_hot = partial(default_to_one_hot, num_classes=n_classes)
-    optimizer, scheduler = get_optimizer([p for p in sic.parameters() if p.requires_grad], lr=0.001, epochs=args.epochs, n_iters_per_epoch=len(train_loader))
+    optimizer, scheduler = get_optimizer(
+        [p for p in sic.parameters() if p.requires_grad],
+        lr=0.001,
+        epochs=args.epochs,
+        n_iters_per_epoch=len(train_loader),
+    )
 
-    for epoch in range(args.epochs):
+    start_epoch = 0
+    # Resume from checkpoint if exists
+    checkpoint_path = Path(args.results_dir) / "checkpoint.pth"
+    if args.resume and checkpoint_path.exists():
+        checkpoint = torch.load(checkpoint_path, map_location=device)
+        sic.load_state_dict(checkpoint['model_state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+        start_epoch = checkpoint['epoch'] + 1
+        print(f"Resumed from epoch {start_epoch}")
+
+    for epoch in range(start_epoch, args.epochs):
     
         # TRAIN
         total_loss = 0
         sic.train()
-        for (x, y) in tqdm(train_loader):
-            optimizer.zero_grad()
+        optimizer.zero_grad()
+        for i, (x, y) in enumerate(tqdm(train_loader)):
             loss, preds, targets = default_step(sic, x.to(device), y.to(device), to_one_hot, criterion)
+            loss = loss / args.accumulation_steps
             loss.backward()
-            optimizer.step()
-            scheduler.step()
-            total_loss += loss.item()
+            if (i + 1) % args.accumulation_steps == 0:
+                optimizer.step()
+                scheduler.step()
+                optimizer.zero_grad()
+            total_loss += loss.item() * args.accumulation_steps
         print(f"Epoch {epoch} train loss: {total_loss / len(train_loader)}")
 
         # VALIDATE
@@ -131,23 +155,52 @@ def main(args=None):
         # validation routine.
         #
         # Must first set to eval, followed by precomputing support vectors.
-        # Then is ready for evaluation
+        # Then is ready for evaluation.
         ##########
         sic.eval()
-        sic.precompute()
+
+        with torch.no_grad():
+            sic.precompute()
+
         all_preds = []
         all_targets = []
-        for (x, y) in tqdm(val_loader):
-            loss, preds, targets = default_val_step(sic, x.to(device), y.to(device), to_one_hot, criterion)
-            all_preds.append(preds.detach().cpu().numpy())
-            all_targets.append(targets.detach().cpu().numpy())
-            total_loss += loss.item()
+
+        with torch.no_grad():
+            for (x, y) in tqdm(val_loader):
+                loss, preds, targets = default_val_step(
+                    sic,
+                    x.to(device),
+                    y.to(device),
+                    to_one_hot,
+                    criterion,
+                )
+
+                all_preds.append(preds.detach().cpu().numpy())
+                all_targets.append(targets.detach().cpu().numpy())
+                total_loss += loss.item()
+
         all_preds = np.concatenate(all_preds)
         all_targets = np.concatenate(all_targets)
+
         # compute foreground classes accuracy only
         accuracy = (all_preds == all_targets).mean() * 100
-        print(f"Epoch {epoch} val loss: {total_loss / len(val_loader)}, val accuracy: {accuracy:.2f}%")
 
+        print(
+            f"Epoch {epoch} val loss: {total_loss / len(val_loader)}, "
+            f"val accuracy: {accuracy:.2f}%"
+        )
+
+        torch.cuda.empty_cache()
+        # Save checkpoint (inside epoch loop)
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': sic.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'scheduler_state_dict': scheduler.state_dict(),
+        }, checkpoint_path)
+        print(f"Checkpoint saved at epoch {epoch}")
+
+    # After loop ends - save final model
     torch.save(sic.state_dict(), Path(args.results_dir) / "sic_dogs.pth")
 
 
