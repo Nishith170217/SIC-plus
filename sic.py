@@ -12,7 +12,12 @@ from typing import Dict, Any
 import warnings
 
 from bcos import BcosUtilMixin, BcosLinear, BcosReLU, LogitLayer, DetachableModule
-from nw import SupportSetTrain, compute_clusters
+from nw import (
+    SupportSetTrain,
+    MultiLabelSupportSetTrain,
+    compute_clusters,
+    compute_multilabel_clusters,
+)
 
 
 class BCosSimilarity(DetachableModule):
@@ -55,6 +60,7 @@ class SIC(BcosUtilMixin, nn.Module):
                 n_shot=1,
                 temperature=None,
                 device=None,
+                multilabel=False,
                 **args):
         super().__init__()
         self.n_way = n_way
@@ -62,6 +68,7 @@ class SIC(BcosUtilMixin, nn.Module):
         self.n_shot = n_shot
         self.proj_dim = proj_dim
         self.temperature = temperature
+        self.multilabel = multilabel
         self.device = device
 
         # Initialize featurizer
@@ -80,7 +87,14 @@ class SIC(BcosUtilMixin, nn.Module):
         self.logit_layer = LogitLayer(logit_temperature=self.temperature, logit_bias=-math.log(max(self.n_classes - 1, 2)))
 
         # Initialize support set
-        self.support_train = SupportSetTrain(support_loader.dataset, self.n_classes, "random", self.n_shot, n_way=self.n_way)  # used for random sampling
+        support_set_class = (
+    MultiLabelSupportSetTrain
+    if self.multilabel
+    else SupportSetTrain
+)
+
+        support_set_class = (MultiLabelSupportSetTrain if self.multilabel else SupportSetTrain)
+        self.support_train = support_set_class(support_loader.dataset,self.n_classes,"random",self.n_shot,n_way=self.n_way,)
         self.supports = support_loader  # used for computing support vectors for inference
 
 
@@ -173,8 +187,9 @@ class SIC(BcosUtilMixin, nn.Module):
 
         feats = torch.cat(feats, dim=0)
         targets = torch.cat(targets, dim=0)
+        cluster_function = compute_multilabel_clusters if self.multilabel else compute_clusters
         self.cluster_feat, self.cluster_y, self.cluster_indices = \
-            compute_clusters(feats, targets, self.n_shot)
+        cluster_function(feats, targets, self.n_shot)
 
 
     def sanity_checks_bcos(self, in_tensor=None):
