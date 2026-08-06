@@ -1,0 +1,47 @@
+SIC Pascal VOC 2007 Reproduction Results
+=========================================
+
+Model: B-cos DenseNet121
+Dataset: Pascal VOC 2007
+Task: Multi-label classification
+Number of classes: 20
+
+Training Settings
+-----------------
+Physical batch size: 8
+Gradient accumulation steps: 2
+Effective query batch size: 16
+Classes sampled per batch: 20 (all classes)
+Support samples per class: 3
+Epochs: 50
+GPU: NVIDIA A100-SXM4 40 GB
+
+Results
+-------
+Best sklearn mAP: 86.80%
+VOC2007 11-point mAP: 83.58%
+Label-wise accuracy at threshold 0.50: 97.05%
+Micro F1 at threshold 0.50: 76.96%
+Macro F1 at threshold 0.50: 81.11%
+
+Paper Comparison
+----------------
+Paper-reported accuracy: approximately 97.00%
+Reproduced label-wise accuracy: 97.05%
+Outcome: Matched under the label-wise accuracy metric.
+
+The initially observed difference between 86.80% and 97.00% resulted
+from comparing mAP with label-wise accuracy rather than from a model
+performance gap.
+
+Per-Class VOC2007 11-Point AP Highlights
+----------------------------------------
+Best:
+- cat: 91.93%
+- train: 91.49%
+- horse: 91.27%
+
+Lowest:
+- bottle: 58.48%
+- chair: 67.37%
+- pottedplant: 68.37%
