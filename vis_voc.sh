@@ -22,5 +22,5 @@ python vis_voc_sic.py \
     --threshold=0.5 \
     --batch_size=32 \
     --num_workers=8 \
-    --percentile=99.9 \
-    --smooth=9
+    --percentile=95 \
+    --smooth=15

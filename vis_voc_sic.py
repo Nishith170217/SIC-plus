@@ -206,7 +206,17 @@ def plot_class_explanation(
         y_probs=False,
     )
     axes[0, 1].set_title("Support evidence")
-
+    axes[0, 1].set_xticks(range(model.n_shot + 2))
+    axes[0, 1].set_xticklabels(
+        ["Total", "S1", "S2", "S3", "Bias"],
+        rotation=0,
+        fontsize=8,
+    )
+    axes[0, 1].tick_params(
+        axis="x",
+        direction="out",
+        pad=3,
+    )
     test_explanation = model.explain_prediction(
         image.unsqueeze(0).to(model.device),
         class_index,
