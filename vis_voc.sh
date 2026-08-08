@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=sic_voc_vis
-#SBATCH --time=01:00:00
+#SBATCH --time=00:30:00
 #SBATCH --gres=gpu:a100:1
 #SBATCH --partition=a100
 #SBATCH --cpus-per-task=8
@@ -18,6 +18,7 @@ python vis_voc_sic.py \
     --data_dir=/home/woody/rlvl/rlvl171v/data/pascal-voc/VOCdevkit/VOC2007 \
     --checkpoint=/home/woody/rlvl/rlvl171v/SIC/results/voc_full/best_model.pth \
     --output_dir=/home/woody/rlvl/rlvl171v/SIC/visualizations/voc \
+    --sample_index="${SAMPLE_INDEX:--1}" \
     --max_classes=3 \
     --threshold=0.5 \
     --batch_size=32 \
