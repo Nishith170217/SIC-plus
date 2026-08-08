@@ -176,6 +176,40 @@ def get_separated_indices(vals):
         indices[d[c]].append(i)
     return indices
 
+def get_multilabel_class_indices(targets):
+    """
+    Build one image-index pool for every class in a multi-label dataset.
+
+    Args:
+        targets: Tensor or array with shape [num_images, num_classes].
+                 Positive labels must have values greater than zero.
+
+    Returns:
+        A list containing one list of image indices per class.
+    """
+    if not torch.is_tensor(targets):
+        targets = torch.as_tensor(targets)
+
+    if targets.ndim != 2:
+        raise ValueError(
+            "Multi-label targets must have shape "
+            f"[num_images, num_classes], got {tuple(targets.shape)}"
+        )
+
+    class_indices = []
+
+    for class_idx in range(targets.shape[1]):
+        indices = torch.where(targets[:, class_idx] > 0)[0].tolist()
+
+        if not indices:
+            raise ValueError(
+                f"Class {class_idx} has no positive samples"
+            )
+
+        class_indices.append(indices)
+
+    return class_indices
+
 def linear_normalization(arr, new_range=(0, 1)):
     """Linearly normalizes a batch of images into new_range
     arr: (batch_size, n_ch, l, w)
@@ -192,6 +226,132 @@ def linear_normalization(arr, new_range=(0, 1)):
     min_per_batch = min_per_batch.view(bs, nch, 1, 1)
 
     return (arr - min_per_batch) * (new_range[1]-new_range[0]) / (max_per_batch - min_per_batch) + new_range[0]
+
+class InfiniteUniformMultiLabelClassLoader(DataLoader):
+    """
+    Samples n_shot positive images for each selected class.
+
+    An image may be sampled for multiple classes, but every sampled support
+    is assigned one integer class identity for the NW head.
+    """
+
+    def __init__(self, dataset, n_shot, n_way=None):
+        self.dataset = dataset
+        self.n_shot = n_shot
+        self.n_way = n_way
+
+        targets = torch.as_tensor(dataset.targets)
+        self.class_indices = get_multilabel_class_indices(targets)
+        self.n_classes = len(self.class_indices)
+
+        if n_shot < 1:
+            raise ValueError("n_shot must be at least 1")
+
+        if n_way is not None:
+            if n_way < 1 or n_way > self.n_classes:
+                raise ValueError(
+                    f"n_way must be between 1 and {self.n_classes}"
+                )
+
+        for class_idx, indices in enumerate(self.class_indices):
+            if len(indices) < n_shot:
+                raise ValueError(
+                    f"Class {class_idx} has only {len(indices)} "
+                    f"samples, but n_shot={n_shot}"
+                )
+
+        super().__init__(dataset)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.next()
+
+    def _select_classes(self, query_targets=None):
+        if self.n_way is None:
+            return np.arange(self.n_classes)
+
+        if query_targets is None:
+            return np.random.choice(
+                self.n_classes,
+                size=self.n_way,
+                replace=False,
+            )
+
+        query_targets = torch.as_tensor(query_targets)
+
+        if query_targets.ndim == 1:
+            query_targets = query_targets.unsqueeze(0)
+
+        if query_targets.ndim != 2:
+            raise ValueError(
+                "Query targets must have shape [batch, classes]"
+            )
+
+        required_classes = torch.where(
+            query_targets > 0
+        )[1].unique().cpu().numpy()
+
+        if len(required_classes) > self.n_way:
+            raise ValueError(
+                f"Query batch contains {len(required_classes)} positive "
+                f"classes, but n_way={self.n_way}. Increase n_way or "
+                "reduce the query batch size."
+            )
+
+        remaining_classes = np.setdiff1d(
+            np.arange(self.n_classes),
+            required_classes,
+        )
+
+        additional_count = self.n_way - len(required_classes)
+
+        if additional_count > 0:
+            additional_classes = np.random.choice(
+                remaining_classes,
+                size=additional_count,
+                replace=False,
+            )
+            selected_classes = np.concatenate(
+                [required_classes, additional_classes]
+            )
+        else:
+            selected_classes = required_classes
+
+        return np.sort(selected_classes)
+
+    def next(self, query_targets=None):
+        selected_classes = self._select_classes(query_targets)
+
+        support_images = []
+        support_class_ids = []
+
+        for class_idx in selected_classes:
+            selected_indices = np.random.choice(
+                self.class_indices[int(class_idx)],
+                size=self.n_shot,
+                replace=False,
+            )
+
+            for image_idx in selected_indices:
+                sample = self.dataset[int(image_idx)]
+                support_images.append(sample[0])
+                support_class_ids.append(int(class_idx))
+
+        support_images = self.collate_fn(support_images)
+        support_class_ids = torch.tensor(
+            support_class_ids,
+            dtype=torch.long,
+        )
+
+        # SupportSetTrain currently expects a third metadata output.
+        metadata = torch.zeros(
+            len(support_class_ids),
+            dtype=torch.long,
+        )
+
+        return support_images, support_class_ids, metadata
 
 class KNN:
     '''KNN.'''
@@ -264,3 +424,112 @@ def compute_clusters(embeddings, labels, n_clusters, closest=True):
     slabel = torch.tensor(slabel)
     sindices = torch.tensor(sindices)
     return sfeat, slabel, sindices
+
+def compute_multilabel_clusters(
+    embeddings,
+    targets,
+    n_clusters,
+    closest=True,
+):
+    """
+    Compute class-specific prototypes for multi-label targets.
+
+    Args:
+        embeddings: Feature tensor shaped [num_images, feature_dim].
+        targets: Multi-hot tensor shaped [num_images, num_classes].
+        n_clusters: Number of prototypes per class.
+        closest: Select real samples nearest to centroids when True.
+
+    Returns:
+        support_features: [num_classes * n_clusters, feature_dim]
+        support_labels: [num_classes * n_clusters]
+        support_indices: Original dataset indices of selected images
+    """
+    if not torch.is_tensor(embeddings):
+        embeddings = torch.as_tensor(embeddings)
+
+    if not torch.is_tensor(targets):
+        targets = torch.as_tensor(targets)
+
+    if embeddings.ndim != 2:
+        raise ValueError(
+            f"Embeddings must have shape [N, D], got "
+            f"{tuple(embeddings.shape)}"
+        )
+
+    if targets.ndim != 2:
+        raise ValueError(
+            f"Targets must have shape [N, C], got "
+            f"{tuple(targets.shape)}"
+        )
+
+    if len(embeddings) != len(targets):
+        raise ValueError(
+            "Embeddings and targets must contain the same "
+            "number of samples"
+        )
+
+    if n_clusters < 1:
+        raise ValueError("n_clusters must be at least 1")
+
+    if not closest:
+        raise NotImplementedError(
+            "SIC explanations require real support images; "
+            "use closest=True"
+        )
+
+    embeddings = embeddings.detach().cpu()
+    targets = targets.detach().cpu()
+
+    support_features = []
+    support_labels = []
+    support_indices = []
+
+    for class_idx in range(targets.shape[1]):
+        class_mask = targets[:, class_idx] > 0
+        class_indices = torch.where(class_mask)[0]
+        class_embeddings = embeddings[class_mask]
+
+        if len(class_embeddings) < n_clusters:
+            raise ValueError(
+                f"Class {class_idx} has only "
+                f"{len(class_embeddings)} positive samples, "
+                f"but n_clusters={n_clusters}"
+            )
+
+        kmeans = KMeans(
+            n_clusters=n_clusters,
+            n_init=10,
+            random_state=0,
+        ).fit(class_embeddings.numpy())
+
+        centroids = torch.as_tensor(
+            kmeans.cluster_centers_,
+            dtype=embeddings.dtype,
+        )
+
+        distances = torch.cdist(
+            centroids,
+            class_embeddings,
+        )
+
+        nearest_local_indices = distances.argmin(dim=1)
+        selected_dataset_indices = class_indices[
+            nearest_local_indices
+        ]
+
+        support_features.append(
+            embeddings[selected_dataset_indices]
+        )
+        support_labels.extend(
+            [class_idx] * n_clusters
+        )
+        support_indices.extend(
+            selected_dataset_indices.tolist()
+        )
+
+    return (
+        torch.cat(support_features, dim=0),
+        torch.tensor(support_labels, dtype=torch.long),
+        torch.tensor(support_indices, dtype=torch.long),
+    )

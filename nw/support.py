@@ -5,7 +5,14 @@ import numpy as np
 import random
 import torch
 from torch.utils.data import Dataset, ConcatDataset
-from .utils import DatasetMetadata, InfiniteUniformClassLoader, FullDataset, compute_clusters
+from .utils import (
+    DatasetMetadata,
+    InfiniteUniformClassLoader,
+    InfiniteUniformMultiLabelClassLoader,
+    FullDataset,
+    compute_clusters,
+)
+
 
 class SupportSet:
     '''Support set base class for NW.'''
@@ -94,6 +101,27 @@ class SupportSetTrain(SupportSet):
         else:
             train_iter = [iter(InfiniteUniformClassLoader(env, self.n_shot)) for env in self.env_datasets]
         return train_iter
+
+class MultiLabelSupportSetTrain(SupportSetTrain):
+    """
+    Support-set sampler for datasets with multi-hot targets.
+
+    Query targets have shape [batch, classes], while sampled support labels
+    are integer class identities.
+    """
+
+    def _build_iter(self):
+        if self.train_type != "random":
+            raise NotImplementedError(
+                "Multi-label support sampling currently supports "
+                "train_type='random' only"
+            )
+
+        return InfiniteUniformMultiLabelClassLoader(
+            self.combined_dataset,
+            self.n_shot,
+            self.n_way,
+        )
 
 class SupportSetEval(SupportSet):
     '''Support set for NW evaluation.'''
