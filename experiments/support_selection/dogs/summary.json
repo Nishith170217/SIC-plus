@@ -1,0 +1,133 @@
+{
+  "dataset": "Stanford Dogs",
+  "checkpoint": "/home/woody/rlvl/rlvl171v/SIC/results/dogs_bs1/sic_dogs.pth",
+  "n_classes": 120,
+  "n_shot": 3,
+  "baseline": {
+    "mean_support_diversity": 0.11439034019907315,
+    "top1_accuracy": 78.4149169921875,
+    "top5_accuracy": 96.81817626953125,
+    "macro_f1": 77.56160258637003,
+    "balanced_accuracy": 77.95292074339633
+  },
+  "random_mean": {
+    "top1_accuracy": 78.12354583740235,
+    "top1_std": 0.21632471362244815,
+    "macro_f1": 77.08635700058461,
+    "macro_f1_std": 0.2910052827380514
+  },
+  "configurations": [
+    {
+      "configuration": "kmeans",
+      "strategy": "kmeans",
+      "seed": null,
+      "mean_support_diversity": 0.11439034019907315,
+      "top1_accuracy": 78.4149169921875,
+      "delta_top1": 0.0,
+      "top5_accuracy": 96.81817626953125,
+      "delta_top5": 0.0,
+      "macro_f1": 77.56160258637003,
+      "delta_macro_f1": 0.0,
+      "balanced_accuracy": 77.95292074339633,
+      "delta_balanced_accuracy": 0.0
+    },
+    {
+      "configuration": "random_seed_0",
+      "strategy": "random",
+      "seed": 0,
+      "mean_support_diversity": 0.11388009811441104,
+      "top1_accuracy": 78.00699615478516,
+      "delta_top1": -0.40792083740234375,
+      "top5_accuracy": 96.39860534667969,
+      "delta_top5": -0.4195709228515625,
+      "macro_f1": 76.99809934271748,
+      "delta_macro_f1": -0.5635032436525478,
+      "balanced_accuracy": 77.48400503843743,
+      "delta_balanced_accuracy": -0.4689157049589028
+    },
+    {
+      "configuration": "random_seed_1",
+      "strategy": "random",
+      "seed": 1,
+      "mean_support_diversity": 0.12192564904689789,
+      "top1_accuracy": 78.06526947021484,
+      "delta_top1": -0.34964752197265625,
+      "top5_accuracy": 96.64335632324219,
+      "delta_top5": -0.1748199462890625,
+      "macro_f1": 76.86963723690909,
+      "delta_macro_f1": -0.6919653494609435,
+      "balanced_accuracy": 77.44451380893975,
+      "delta_balanced_accuracy": -0.5084069344565876
+    },
+    {
+      "configuration": "random_seed_2",
+      "strategy": "random",
+      "seed": 2,
+      "mean_support_diversity": 0.12220202287038168,
+      "top1_accuracy": 78.49650573730469,
+      "delta_top1": 0.0815887451171875,
+      "top5_accuracy": 96.39860534667969,
+      "delta_top5": -0.4195709228515625,
+      "macro_f1": 77.52393574633322,
+      "delta_macro_f1": -0.03766684003680609,
+      "balanced_accuracy": 77.95262941733075,
+      "delta_balanced_accuracy": -0.0002913260655788008
+    },
+    {
+      "configuration": "random_seed_3",
+      "strategy": "random",
+      "seed": 3,
+      "mean_support_diversity": 0.12142261117696762,
+      "top1_accuracy": 77.94872283935547,
+      "delta_top1": -0.46619415283203125,
+      "top5_accuracy": 96.56177520751953,
+      "delta_top5": -0.25640106201171875,
+      "macro_f1": 76.81546807652052,
+      "delta_macro_f1": -0.7461345098495116,
+      "balanced_accuracy": 77.43197259292413,
+      "delta_balanced_accuracy": -0.5209481504722078
+    },
+    {
+      "configuration": "random_seed_4",
+      "strategy": "random",
+      "seed": 4,
+      "mean_support_diversity": 0.11741134425004324,
+      "top1_accuracy": 78.10023498535156,
+      "delta_top1": -0.3146820068359375,
+      "top5_accuracy": 96.72493743896484,
+      "delta_top5": -0.09323883056640625,
+      "macro_f1": 77.22464460044272,
+      "delta_macro_f1": -0.3369579859273131,
+      "balanced_accuracy": 77.8505197923711,
+      "delta_balanced_accuracy": -0.10240095102523128
+    },
+    {
+      "configuration": "max_diversity",
+      "strategy": "max_diversity",
+      "seed": null,
+      "mean_support_diversity": 0.39888301560034356,
+      "top1_accuracy": 76.46853637695312,
+      "delta_top1": -1.946380615234375,
+      "top5_accuracy": 95.75757598876953,
+      "delta_top5": -1.0606002807617188,
+      "macro_f1": 75.06501946408761,
+      "delta_macro_f1": -2.4965831222824164,
+      "balanced_accuracy": 75.82039251979178,
+      "delta_balanced_accuracy": -2.1325282236045524
+    },
+    {
+      "configuration": "max_similarity",
+      "strategy": "max_similarity",
+      "seed": null,
+      "mean_support_diversity": 0.014690131445725759,
+      "top1_accuracy": 78.75291442871094,
+      "delta_top1": 0.3379974365234375,
+      "top5_accuracy": 96.7599105834961,
+      "delta_top5": -0.05826568603515625,
+      "macro_f1": 78.02560879656258,
+      "delta_macro_f1": 0.46400621019255084,
+      "balanced_accuracy": 78.31369378902217,
+      "delta_balanced_accuracy": 0.3607730456258338
+    }
+  ]
+}

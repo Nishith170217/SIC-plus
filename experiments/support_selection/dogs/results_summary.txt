@@ -1,0 +1,38 @@
+Stanford Dogs SIC Support-Selection Experiment
+===============================================
+
+Checkpoint: results/dogs_bs1/sic_dogs.pth
+Classes: 120
+n_shot: 3
+Retraining: No
+
+K-means baseline:
+- Top-1 accuracy: 78.4149%
+- Top-5 accuracy: 96.8182%
+- Macro F1: 77.5616%
+- Balanced accuracy: 77.9529%
+
+Compact representative supports:
+- Top-1 accuracy: 78.7529% (+0.3380)
+- Top-5 accuracy: 96.7599% (-0.0583)
+- Macro F1: 78.0256% (+0.4640)
+- Balanced accuracy: 78.3137% (+0.3608)
+
+Maximum-diversity supports:
+- Top-1 accuracy: 76.4685% (-1.9464)
+- Macro F1: 75.0650% (-2.4966)
+
+Per-class validation:
+- Breeds improved: 37/120
+- Breeds unchanged: 31/120
+- Breeds declined: 52/120
+- Mean class-accuracy change: +0.3608 points
+- Paired t-test: t=0.5677, p=0.5713
+- Wilcoxon test: W=1820.5, p=0.4565
+
+Interpretation:
+Compact representative support selection produced a small aggregate
+improvement, but the per-breed change was not statistically significant.
+Therefore, the Dogs experiment does not establish a general performance
+improvement. Maximum-diversity selection reduced performance, consistent
+with the Pascal VOC experiment.
