@@ -49,3 +49,14 @@ The per-class improvement was statistically significant under both
 tests. Because the support strategies were explored using the VOC test
 results, this result is considered exploratory and requires independent
 validation on the Dogs dataset.
+
+Evaluation methodology:
+The trained SIC checkpoint was kept frozen for every configuration.
+No model parameters were updated, and no additional training or
+fine-tuning was performed. Features were extracted once from the
+training support set using the frozen backbone. Each support-selection
+strategy then selected three existing training images per class and
+replaced only SIC's precomputed support features, labels, and source
+indices. The unchanged model was evaluated on the same test split for
+every strategy. Consequently, differences in the reported metrics are
+attributable to support-prototype selection rather than retraining.
