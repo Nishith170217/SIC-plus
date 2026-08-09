@@ -1,0 +1,40 @@
+Pascal VOC 2007 SIC Corruption Robustness
+==========================================
+
+Methodology:
+The trained SIC checkpoint and clean K-means supports were frozen.
+No retraining or parameter updates were performed. Corruptions were
+applied only to VOC test/query images before the B-cos evaluation
+transform. Support images remained clean.
+
+Clean baseline:
+- sklearn mAP: 86.80%
+- VOC07 mAP: 83.58%
+- Label accuracy: 97.05%
+- Micro F1: 76.96%
+- Macro F1: 81.11%
+
+Strongest tested corruptions:
+
+Gaussian noise (sigma=0.20):
+- sklearn mAP: 73.47% (-13.32)
+- Micro F1: 61.56% (-15.40)
+- Macro F1: 62.59% (-18.52)
+
+Gaussian blur (radius=4):
+- sklearn mAP: 62.06% (-24.74)
+- Micro F1: 55.77% (-21.19)
+- Macro F1: 48.62% (-32.50)
+
+Central occlusion (40% area):
+- sklearn mAP: 45.26% (-41.54)
+- Micro F1: 31.95% (-45.00)
+- Macro F1: 30.33% (-50.78)
+
+Conclusion:
+SIC is relatively robust to mild Gaussian noise and blur but degrades
+substantially under severe corruption. Central occlusion causes the
+largest reduction, indicating strong dependence on visible object
+evidence. Label accuracy remains high because VOC contains many
+negative labels; mAP and F1 provide a more informative robustness
+assessment.
