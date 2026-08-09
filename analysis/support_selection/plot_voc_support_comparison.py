@@ -130,9 +130,21 @@ def main():
                     dataset_index,
                 )
 
+                if column == 0:
+                    title = (
+                        f"{strategy_name} "
+                        f"(AP={strategy_ap:.2f}%, Δ={delta_ap:+.2f})\n"
+                        f"S{column + 1}: {image_id}\n"
+                        f"Labels: {', '.join(labels)}"
+                    )
+                else:
+                    title = (
+                        f"S{column + 1}: {image_id}\n"
+                        f"Labels: {', '.join(labels)}"
+                    )
+
                 axes[row, column].set_title(
-                    f"S{column + 1}: {image_id}\n"
-                    f"Labels: {', '.join(labels)}",
+                    title,
                     fontsize=8,
                 )
                 axes[row, column].axis("off")
