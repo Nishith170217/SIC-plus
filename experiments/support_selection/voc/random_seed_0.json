@@ -1,0 +1,197 @@
+{
+  "configuration": "random_seed_0",
+  "strategy": "random",
+  "seed": 0,
+  "n_shot": 3,
+  "mean_support_diversity": 0.21276841908693314,
+  "selected_indices": [
+    4786,
+    2425,
+    1238,
+    2046,
+    1502,
+    3887,
+    2121,
+    2627,
+    3858,
+    1333,
+    3178,
+    1947,
+    725,
+    1980,
+    3393,
+    4574,
+    4079,
+    1547,
+    2197,
+    4922,
+    914,
+    2436,
+    2169,
+    4402,
+    2581,
+    4890,
+    4134,
+    585,
+    224,
+    3058,
+    4065,
+    416,
+    2248,
+    2649,
+    3821,
+    3834,
+    2286,
+    3079,
+    757,
+    2125,
+    2610,
+    3034,
+    641,
+    4569,
+    243,
+    4784,
+    3062,
+    4688,
+    4877,
+    4483,
+    123,
+    3091,
+    2279,
+    2634,
+    1552,
+    3224,
+    3161,
+    764,
+    3989,
+    3884
+  ],
+  "sklearn_map": 86.26650896717207,
+  "voc_2007_11_point_map": 83.12732516586102,
+  "label_accuracy_at_threshold": 96.52716391826948,
+  "micro_f1": 71.00932994062765,
+  "macro_f1": 79.55792482424401,
+  "threshold": 0.5,
+  "per_class": {
+    "aeroplane": {
+      "positive_count": 204,
+      "negative_count": 4747,
+      "sklearn_ap": 98.18277166894246,
+      "voc_2007_11_point_ap": 91.14139141531166
+    },
+    "bicycle": {
+      "positive_count": 239,
+      "negative_count": 4702,
+      "sklearn_ap": 91.16377287120282,
+      "voc_2007_11_point_ap": 88.1501328914826
+    },
+    "bird": {
+      "positive_count": 282,
+      "negative_count": 4663,
+      "sklearn_ap": 96.08295938742253,
+      "voc_2007_11_point_ap": 91.34411379187773
+    },
+    "boat": {
+      "positive_count": 172,
+      "negative_count": 4776,
+      "sklearn_ap": 94.5520917430479,
+      "voc_2007_11_point_ap": 89.77710679567438
+    },
+    "bottle": {
+      "positive_count": 212,
+      "negative_count": 4712,
+      "sklearn_ap": 46.44398258048717,
+      "voc_2007_11_point_ap": 48.381288647544956
+    },
+    "bus": {
+      "positive_count": 174,
+      "negative_count": 4769,
+      "sklearn_ap": 86.73721876085033,
+      "voc_2007_11_point_ap": 83.2942336513831
+    },
+    "car": {
+      "positive_count": 721,
+      "negative_count": 4177,
+      "sklearn_ap": 93.22631809233346,
+      "voc_2007_11_point_ap": 90.11131763010302
+    },
+    "cat": {
+      "positive_count": 322,
+      "negative_count": 4620,
+      "sklearn_ap": 96.79306269946724,
+      "voc_2007_11_point_ap": 91.90416785974482
+    },
+    "chair": {
+      "positive_count": 417,
+      "negative_count": 4407,
+      "sklearn_ap": 63.535216181900324,
+      "voc_2007_11_point_ap": 62.86028772023502
+    },
+    "cow": {
+      "positive_count": 127,
+      "negative_count": 4825,
+      "sklearn_ap": 88.6146168351071,
+      "voc_2007_11_point_ap": 85.9386600972376
+    },
+    "diningtable": {
+      "positive_count": 190,
+      "negative_count": 4705,
+      "sklearn_ap": 81.73899431374838,
+      "voc_2007_11_point_ap": 78.07473406051852
+    },
+    "dog": {
+      "positive_count": 418,
+      "negative_count": 4519,
+      "sklearn_ap": 94.4620397542867,
+      "voc_2007_11_point_ap": 90.82320066897411
+    },
+    "horse": {
+      "positive_count": 274,
+      "negative_count": 4673,
+      "sklearn_ap": 95.74662581386546,
+      "voc_2007_11_point_ap": 91.1553478752663
+    },
+    "motorbike": {
+      "positive_count": 222,
+      "negative_count": 4719,
+      "sklearn_ap": 92.6086295258916,
+      "voc_2007_11_point_ap": 89.64845052709576
+    },
+    "person": {
+      "positive_count": 2007,
+      "negative_count": 2855,
+      "sklearn_ap": 83.00678795805402,
+      "voc_2007_11_point_ap": 82.80534265725763
+    },
+    "pottedplant": {
+      "positive_count": 224,
+      "negative_count": 4698,
+      "sklearn_ap": 68.96880371142693,
+      "voc_2007_11_point_ap": 67.52719543809495
+    },
+    "sheep": {
+      "positive_count": 97,
+      "negative_count": 4854,
+      "sklearn_ap": 94.3735978630161,
+      "voc_2007_11_point_ap": 91.5124051832559
+    },
+    "sofa": {
+      "positive_count": 223,
+      "negative_count": 4597,
+      "sklearn_ap": 75.02329991758417,
+      "voc_2007_11_point_ap": 74.18035522653058
+    },
+    "train": {
+      "positive_count": 259,
+      "negative_count": 4693,
+      "sklearn_ap": 98.34971042942972,
+      "voc_2007_11_point_ap": 91.5264530551416
+    },
+    "tvmonitor": {
+      "positive_count": 229,
+      "negative_count": 4697,
+      "sklearn_ap": 85.71967923537707,
+      "voc_2007_11_point_ap": 82.39031812449022
+    }
+  }
+}

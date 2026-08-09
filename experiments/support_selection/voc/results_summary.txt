@@ -1,0 +1,62 @@
+Pascal VOC 2007 SIC Support-Selection Experiment
+=================================================
+
+Checkpoint: results/voc_full/best_model.pth
+n_shot: 3
+Retraining: No
+
+Baseline:
+- Strategy: K-means centroid-nearest supports
+- sklearn mAP: 86.7953%
+- VOC07 mAP: 83.5832%
+- Label accuracy: 97.0545%
+- Micro F1: 76.9573%
+- Macro F1: 81.1143%
+
+Best strategy:
+- Strategy: Compact representative supports
+  (centroid-nearest anchor followed by maximally similar supports)
+- sklearn mAP: 88.0857% (+1.2904)
+- VOC07 mAP: 84.6669% (+1.0837)
+- Label accuracy: 97.5920% (+0.5375)
+- Micro F1: 81.6108% (+4.6535)
+- Macro F1: 83.0962% (+1.9819)
+
+Maximum-diversity strategy:
+- sklearn mAP: 56.7416% (-30.0537)
+- Micro F1: 44.1543% (-32.8030)
+
+Interpretation:
+Support selection has a substantial effect on SIC performance. Extreme
+feature diversity selected supports that were insufficiently
+representative and caused a major performance reduction. Compact
+supports centred around a representative class example improved every
+reported metric without retraining. Random support selection was also
+generally worse than the K-means baseline.
+
+This is a preliminary improvement result. It should be validated using
+additional random seeds, per-class analysis, qualitative explanations,
+and a corresponding Dogs experiment.
+
+Per-class validation:
+- Classes improved: 14/20
+- Classes declined: 6/20
+- Mean per-class AP change: +1.2904 points
+- Paired t-test: t=2.6735, p=0.0150
+- Wilcoxon signed-rank test: W=45.0000, p=0.0240
+
+The per-class improvement was statistically significant under both
+tests. Because the support strategies were explored using the VOC test
+results, this result is considered exploratory and requires independent
+validation on the Dogs dataset.
+
+Evaluation methodology:
+The trained SIC checkpoint was kept frozen for every configuration.
+No model parameters were updated, and no additional training or
+fine-tuning was performed. Features were extracted once from the
+training support set using the frozen backbone. Each support-selection
+strategy then selected three existing training images per class and
+replaced only SIC's precomputed support features, labels, and source
+indices. The unchanged model was evaluated on the same test split for
+every strategy. Consequently, differences in the reported metrics are
+attributable to support-prototype selection rather than retraining.

@@ -1,0 +1,117 @@
+{
+  "dataset": "Pascal VOC 2007 trainval supports",
+  "checkpoint": "/home/woody/rlvl/rlvl171v/SIC/results/voc_full/best_model.pth",
+  "n_classes": 20,
+  "n_shot": 3,
+  "n_prototypes": 60,
+  "diversity_definition": "1 - mean pairwise cosine similarity",
+  "mean_diversity": 0.3061879563766222,
+  "minimum_diversity_class": "boat",
+  "minimum_diversity": 0.018088161945343018,
+  "maximum_diversity_class": "sheep",
+  "maximum_diversity": 0.812912472213308,
+  "pearson_diversity_vs_sklearn_ap": -0.2755382401881994,
+  "pearson_diversity_vs_voc07_ap": -0.24894634130320137,
+  "classes_ranked_by_diversity": [
+    {
+      "class_name": "sheep",
+      "diversity": 0.812912472213308,
+      "sklearn_ap": 88.88537784520483
+    },
+    {
+      "class_name": "person",
+      "diversity": 0.7193827206889789,
+      "sklearn_ap": 88.37209476508818
+    },
+    {
+      "class_name": "train",
+      "diversity": 0.6249051901201408,
+      "sklearn_ap": 96.65750404180429
+    },
+    {
+      "class_name": "car",
+      "diversity": 0.5101981560389202,
+      "sklearn_ap": 90.49159893346346
+    },
+    {
+      "class_name": "pottedplant",
+      "diversity": 0.4562311967213949,
+      "sklearn_ap": 69.64506537072765
+    },
+    {
+      "class_name": "chair",
+      "diversity": 0.4543173313140869,
+      "sklearn_ap": 68.15999936847257
+    },
+    {
+      "class_name": "bottle",
+      "diversity": 0.40607721606890357,
+      "sklearn_ap": 58.72636858438168
+    },
+    {
+      "class_name": "bird",
+      "diversity": 0.31284699837366736,
+      "sklearn_ap": 94.84195686520371
+    },
+    {
+      "class_name": "diningtable",
+      "diversity": 0.3010003368059794,
+      "sklearn_ap": 81.17278667877508
+    },
+    {
+      "class_name": "sofa",
+      "diversity": 0.2790951728820801,
+      "sklearn_ap": 74.53544433319301
+    },
+    {
+      "class_name": "tvmonitor",
+      "diversity": 0.2563278476397196,
+      "sklearn_ap": 80.92551079126085
+    },
+    {
+      "class_name": "cat",
+      "diversity": 0.21634117762247718,
+      "sklearn_ap": 95.16567725026088
+    },
+    {
+      "class_name": "horse",
+      "diversity": 0.19209023316701257,
+      "sklearn_ap": 96.58818616154545
+    },
+    {
+      "class_name": "dog",
+      "diversity": 0.18682591120402015,
+      "sklearn_ap": 93.9747972408746
+    },
+    {
+      "class_name": "motorbike",
+      "diversity": 0.10064150889714563,
+      "sklearn_ap": 92.4471010196956
+    },
+    {
+      "class_name": "bicycle",
+      "diversity": 0.09157365560531616,
+      "sklearn_ap": 93.42532988750138
+    },
+    {
+      "class_name": "aeroplane",
+      "diversity": 0.0815605719884237,
+      "sklearn_ap": 97.53849691128897
+    },
+    {
+      "class_name": "cow",
+      "diversity": 0.05228535334269202,
+      "sklearn_ap": 89.62059508113053
+    },
+    {
+      "class_name": "bus",
+      "diversity": 0.0510579148928324,
+      "sklearn_ap": 90.19767990097642
+    },
+    {
+      "class_name": "boat",
+      "diversity": 0.018088161945343018,
+      "sklearn_ap": 94.53442139676707
+    }
+  ]
+}

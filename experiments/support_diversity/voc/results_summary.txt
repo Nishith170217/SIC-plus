@@ -1,0 +1,37 @@
+Pascal VOC 2007 SIC Support-Prototype Diversity Analysis
+========================================================
+
+Checkpoint:
+results/voc_full/best_model.pth
+
+Configuration:
+- Classes: 20
+- Prototypes per class: 3
+- Total prototypes: 60
+- Diversity: 1 - mean pairwise cosine similarity
+
+Descriptive results:
+- Mean diversity: 0.3062
+- Most diverse class: sheep (0.8129)
+- Most redundant class: boat (0.0181)
+
+Diversity versus sklearn AP:
+- Pearson r: -0.2755
+- Pearson p-value: 0.2397
+- Spearman rho: -0.3654
+- Spearman p-value: 0.1131
+
+Diversity versus VOC07 11-point AP:
+- Pearson r: -0.2489
+- Pearson p-value: 0.2899
+- Spearman rho: -0.2872
+- Spearman p-value: 0.2195
+
+Interpretation:
+Support-prototype diversity showed a weak-to-moderate negative
+association with per-class AP. However, none of the correlations were
+statistically significant at alpha=0.05. Therefore, this experiment
+does not establish that prototype diversity improves or reduces
+classification performance. Prototype representativeness, object
+scale, background variation, multi-label co-occurrence, and class
+difficulty may also influence performance.
