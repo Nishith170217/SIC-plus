@@ -99,7 +99,7 @@ def main():
         figure, axes = plt.subplots(
             len(strategies),
             args.n_shot,
-            figsize=(12, 10),
+            figsize=(12, 12),
         )
 
         baseline_ap = strategies[0][1]["per_class"][
@@ -161,7 +161,11 @@ def main():
             f"VOC support comparison: {class_name}",
             fontsize=15,
         )
-        figure.tight_layout(rect=[0, 0, 1, 0.96])
+        figure.tight_layout(
+            rect=[0, 0, 1, 0.95],
+            h_pad=4.0,
+            w_pad=1.5,
+        )
 
         output_path = (
             args.output_dir
