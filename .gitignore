@@ -19,3 +19,5 @@ logs/
 experiments/support_selection/voc/support_comparison_grids/
 # Generated full-resolution corruption explanations
 experiments/corruption_robustness/voc/explanations/
+# Generated full-resolution Dogs corruption explanations
+experiments/corruption_robustness/dogs/explanations/
