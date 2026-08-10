@@ -1,0 +1,130 @@
+{
+  "dataset": "Stanford Dogs validation",
+  "checkpoint": "/home/woody/rlvl/rlvl171v/SIC/results/dogs_bs1/sic_dogs.pth",
+  "checkpoint_frozen": true,
+  "support_configuration": "clean K-means supports, n_shot=3",
+  "corruption_scope": "query images only",
+  "seed": 42,
+  "configurations": [
+    {
+      "corruption": "clean",
+      "severity": 0.0,
+      "top1_accuracy": 78.4149169921875,
+      "delta_top1": 0.0,
+      "top5_accuracy": 96.81817626953125,
+      "delta_top5": 0.0,
+      "macro_f1": 77.56160258637003,
+      "delta_macro_f1": 0.0,
+      "balanced_accuracy": 77.95292074339633,
+      "delta_balanced_accuracy": 0.0
+    },
+    {
+      "corruption": "gaussian_noise",
+      "severity": 0.05,
+      "top1_accuracy": 73.07691955566406,
+      "delta_top1": -5.3379974365234375,
+      "top5_accuracy": 94.95338439941406,
+      "delta_top5": -1.8647918701171875,
+      "macro_f1": 72.14819616497545,
+      "delta_macro_f1": -5.413406421394583,
+      "balanced_accuracy": 72.82784438574353,
+      "delta_balanced_accuracy": -5.125076357652802
+    },
+    {
+      "corruption": "gaussian_noise",
+      "severity": 0.1,
+      "top1_accuracy": 58.29836654663086,
+      "delta_top1": -20.11655044555664,
+      "top5_accuracy": 86.93473052978516,
+      "delta_top5": -9.883445739746094,
+      "macro_f1": 57.74298860949171,
+      "delta_macro_f1": -19.818613976878318,
+      "balanced_accuracy": 58.07280352503774,
+      "delta_balanced_accuracy": -19.880117218358592
+    },
+    {
+      "corruption": "gaussian_noise",
+      "severity": 0.2,
+      "top1_accuracy": 24.347318649291992,
+      "delta_top1": -54.06759834289551,
+      "top5_accuracy": 52.400936126708984,
+      "delta_top5": -44.417240142822266,
+      "macro_f1": 24.373340629228633,
+      "delta_macro_f1": -53.18826195714139,
+      "balanced_accuracy": 24.056152738773402,
+      "delta_balanced_accuracy": -53.89676800462293
+    },
+    {
+      "corruption": "gaussian_blur",
+      "severity": 1.0,
+      "top1_accuracy": 74.53380584716797,
+      "delta_top1": -3.8811111450195312,
+      "top5_accuracy": 95.13986206054688,
+      "delta_top5": -1.678314208984375,
+      "macro_f1": 73.79410957315413,
+      "delta_macro_f1": -3.7674930132158977,
+      "balanced_accuracy": 74.32064461624361,
+      "delta_balanced_accuracy": -3.6322761271527213
+    },
+    {
+      "corruption": "gaussian_blur",
+      "severity": 2.0,
+      "top1_accuracy": 59.32400894165039,
+      "delta_top1": -19.09090805053711,
+      "top5_accuracy": 87.8787841796875,
+      "delta_top5": -8.93939208984375,
+      "macro_f1": 58.42692413326692,
+      "delta_macro_f1": -19.134678453103106,
+      "balanced_accuracy": 59.30401067747558,
+      "delta_balanced_accuracy": -18.648910065920752
+    },
+    {
+      "corruption": "gaussian_blur",
+      "severity": 4.0,
+      "top1_accuracy": 30.419578552246094,
+      "delta_top1": -47.995338439941406,
+      "top5_accuracy": 59.463871002197266,
+      "delta_top5": -37.354305267333984,
+      "macro_f1": 29.793401868019192,
+      "delta_macro_f1": -47.76820071835084,
+      "balanced_accuracy": 30.59437124563899,
+      "delta_balanced_accuracy": -47.358549497757345
+    },
+    {
+      "corruption": "central_occlusion",
+      "severity": 0.1,
+      "top1_accuracy": 63.60139846801758,
+      "delta_top1": -14.813518524169922,
+      "top5_accuracy": 89.66200256347656,
+      "delta_top5": -7.1561737060546875,
+      "macro_f1": 62.81557846343049,
+      "delta_macro_f1": -14.746024122939538,
+      "balanced_accuracy": 63.07026930731035,
+      "delta_balanced_accuracy": -14.882651436085986
+    },
+    {
+      "corruption": "central_occlusion",
+      "severity": 0.25,
+      "top1_accuracy": 41.28205108642578,
+      "delta_top1": -37.13286590576172,
+      "top5_accuracy": 71.4685287475586,
+      "delta_top5": -25.349647521972656,
+      "macro_f1": 40.81757703629467,
+      "delta_macro_f1": -36.74402555007536,
+      "balanced_accuracy": 40.702592579414244,
+      "delta_balanced_accuracy": -37.25032816398209
+    },
+    {
+      "corruption": "central_occlusion",
+      "severity": 0.4,
+      "top1_accuracy": 18.752912521362305,
+      "delta_top1": -59.662004470825195,
+      "top5_accuracy": 43.578086853027344,
+      "delta_top5": -53.240089416503906,
+      "macro_f1": 19.21429992088573,
+      "delta_macro_f1": -58.3473026654843,
+      "balanced_accuracy": 18.64732668151042,
+      "delta_balanced_accuracy": -59.30559406188591
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+Stanford Dogs SIC Corruption Robustness
+========================================
+
+Methodology:
+The trained SIC checkpoint and clean K-means supports were frozen.
+No retraining or parameter updates were performed. Corruptions were
+applied only to validation/query images before the B-cos evaluation
+transform. Support images remained clean.
+
+Clean baseline:
+- Top-1 accuracy: 78.41%
+- Top-5 accuracy: 96.82%
+- Macro F1: 77.56%
+- Balanced accuracy: 77.95%
+
+Strongest tested corruptions:
+
+Gaussian noise (sigma=0.20):
+- Top-1 accuracy: 24.35% (-54.07)
+- Top-5 accuracy: 52.40% (-44.42)
+- Macro F1: 24.37% (-53.19)
+
+Gaussian blur (radius=4):
+- Top-1 accuracy: 30.42% (-48.00)
+- Top-5 accuracy: 59.46% (-37.35)
+- Macro F1: 29.79% (-47.77)
+
+Central occlusion (40% area):
+- Top-1 accuracy: 18.75% (-59.66)
+- Top-5 accuracy: 43.58% (-53.24)
+- Macro F1: 19.21% (-58.35)
+
+Conclusion:
+Stanford Dogs SIC performance degrades substantially under all tested
+corruptions. Central occlusion is the most damaging, followed by severe
+Gaussian noise and blur. The stronger sensitivity compared with the VOC
+results is consistent with fine-grained breed classification relying on
+subtle texture, facial, fur, and shape information. VOC and Dogs use
+different primary metrics, so absolute metric drops should be compared
+with caution.

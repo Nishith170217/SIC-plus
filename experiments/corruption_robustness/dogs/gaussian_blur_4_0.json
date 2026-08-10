@@ -1,0 +1,11 @@
+{
+  "corruption": "gaussian_blur",
+  "severity": 4.0,
+  "query_images_corrupted": true,
+  "support_images_corrupted": false,
+  "checkpoint_frozen": true,
+  "top1_accuracy": 30.419578552246094,
+  "top5_accuracy": 59.463871002197266,
+  "macro_f1": 29.793401868019192,
+  "balanced_accuracy": 30.59437124563899
+}

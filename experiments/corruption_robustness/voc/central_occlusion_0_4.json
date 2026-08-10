@@ -1,0 +1,135 @@
+{
+  "corruption": "central_occlusion",
+  "severity": 0.4,
+  "query_images_corrupted": true,
+  "support_images_corrupted": false,
+  "checkpoint_frozen": true,
+  "sklearn_map": 45.25655666360463,
+  "voc_2007_11_point_map": 46.42681945593289,
+  "label_accuracy_at_threshold": 93.64769713780595,
+  "micro_f1": 31.95472355245973,
+  "macro_f1": 30.332412197399826,
+  "threshold": 0.5,
+  "per_class": {
+    "aeroplane": {
+      "positive_count": 204,
+      "negative_count": 4747,
+      "sklearn_ap": 40.44549183718586,
+      "voc_2007_11_point_ap": 42.81506244614827
+    },
+    "bicycle": {
+      "positive_count": 239,
+      "negative_count": 4702,
+      "sklearn_ap": 50.68530482305205,
+      "voc_2007_11_point_ap": 50.76730072178409
+    },
+    "bird": {
+      "positive_count": 282,
+      "negative_count": 4663,
+      "sklearn_ap": 52.62672167201404,
+      "voc_2007_11_point_ap": 52.30513286737565
+    },
+    "boat": {
+      "positive_count": 172,
+      "negative_count": 4776,
+      "sklearn_ap": 60.61466635400412,
+      "voc_2007_11_point_ap": 59.7144885134957
+    },
+    "bottle": {
+      "positive_count": 212,
+      "negative_count": 4712,
+      "sklearn_ap": 33.8064231778007,
+      "voc_2007_11_point_ap": 36.49405234839099
+    },
+    "bus": {
+      "positive_count": 174,
+      "negative_count": 4769,
+      "sklearn_ap": 30.259311982528807,
+      "voc_2007_11_point_ap": 32.75864576709686
+    },
+    "car": {
+      "positive_count": 721,
+      "negative_count": 4177,
+      "sklearn_ap": 53.079195387549596,
+      "voc_2007_11_point_ap": 53.50050434415561
+    },
+    "cat": {
+      "positive_count": 322,
+      "negative_count": 4620,
+      "sklearn_ap": 56.741347814255704,
+      "voc_2007_11_point_ap": 56.75699705018005
+    },
+    "chair": {
+      "positive_count": 417,
+      "negative_count": 4407,
+      "sklearn_ap": 46.88245940458792,
+      "voc_2007_11_point_ap": 47.65269114814987
+    },
+    "cow": {
+      "positive_count": 127,
+      "negative_count": 4825,
+      "sklearn_ap": 30.25880669136117,
+      "voc_2007_11_point_ap": 32.79007698053678
+    },
+    "diningtable": {
+      "positive_count": 190,
+      "negative_count": 4705,
+      "sklearn_ap": 42.56984803686026,
+      "voc_2007_11_point_ap": 44.48789353657374
+    },
+    "dog": {
+      "positive_count": 418,
+      "negative_count": 4519,
+      "sklearn_ap": 39.949764732983475,
+      "voc_2007_11_point_ap": 41.77651565088855
+    },
+    "horse": {
+      "positive_count": 274,
+      "negative_count": 4673,
+      "sklearn_ap": 52.0292374117975,
+      "voc_2007_11_point_ap": 52.449868160095505
+    },
+    "motorbike": {
+      "positive_count": 222,
+      "negative_count": 4719,
+      "sklearn_ap": 31.944754814849617,
+      "voc_2007_11_point_ap": 34.21246729109986
+    },
+    "person": {
+      "positive_count": 2007,
+      "negative_count": 2855,
+      "sklearn_ap": 78.3678147280505,
+      "voc_2007_11_point_ap": 77.68244310418457
+    },
+    "pottedplant": {
+      "positive_count": 224,
+      "negative_count": 4698,
+      "sklearn_ap": 39.55617312016018,
+      "voc_2007_11_point_ap": 40.67002492194285
+    },
+    "sheep": {
+      "positive_count": 97,
+      "negative_count": 4854,
+      "sklearn_ap": 26.92410712102971,
+      "voc_2007_11_point_ap": 28.397416215621192
+    },
+    "sofa": {
+      "positive_count": 223,
+      "negative_count": 4597,
+      "sklearn_ap": 31.617384625611596,
+      "voc_2007_11_point_ap": 35.31829451446843
+    },
+    "train": {
+      "positive_count": 259,
+      "negative_count": 4693,
+      "sklearn_ap": 61.664782456187574,
+      "voc_2007_11_point_ap": 61.357296539981576
+    },
+    "tvmonitor": {
+      "positive_count": 229,
+      "negative_count": 4697,
+      "sklearn_ap": 45.107537080221995,
+      "voc_2007_11_point_ap": 46.62921699648768
+    }
+  }
+}

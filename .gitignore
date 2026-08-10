@@ -17,3 +17,5 @@ visualizations/
 logs/
 # Generated full-resolution support-comparison figures
 experiments/support_selection/voc/support_comparison_grids/
+# Generated full-resolution corruption explanations
+experiments/corruption_robustness/voc/explanations/
