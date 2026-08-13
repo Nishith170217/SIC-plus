@@ -1,0 +1,28 @@
+Pascal VOC SIC Number-of-Supports Experiment
+=============================================
+
+Method:
+Separate SIC models were trained with n_shot values of 1, 3, and 5.
+All other settings were held constant: B-cos DenseNet121 backbone,
+50 epochs, seed 42, learning rate 0.0001, physical batch size 8,
+gradient accumulation 2, and the same Pascal VOC train/test splits.
+The existing n_shot=3 Phase 2 model was reused. Best-mAP checkpoints
+were evaluated using the same standalone evaluator.
+
+Results:
+n_shot  sklearn mAP  VOC07 mAP  Accuracy  Micro F1  Macro F1
+1       84.35%       81.90%     96.73%    75.14%    78.98%
+3       86.80%       83.58%     97.05%    76.96%    81.11%
+5       84.20%       81.54%     96.41%    72.65%    76.32%
+
+Approximate training runtime:
+- n_shot=1: 3 h 03 min
+- n_shot=3: approximately 5 hours
+- n_shot=5: 9 h 53 min
+
+Conclusion:
+Three supports per class achieved the best result across every metric.
+One support did not provide sufficient class coverage. Increasing to
+five supports did not improve performance and substantially increased
+training time. This indicates that SIC benefits from a moderate support
+count rather than simply using more prototypes.
