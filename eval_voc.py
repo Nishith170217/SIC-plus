@@ -176,6 +176,13 @@ def parse_args():
         type=int,
         default=32,
     )
+
+    parser.add_argument(
+        "--n_shot",
+        type=int,
+        default=3,
+    )
+
     parser.add_argument(
         "--support_batch_size",
         type=int,
@@ -193,6 +200,9 @@ def parse_args():
     )
 
     args = parser.parse_args()
+
+    if args.n_shot < 1:
+        parser.error("--n_shot must be at least 1")
 
     if not args.checkpoint.is_file():
         parser.error(
@@ -229,7 +239,7 @@ def main():
         n_classes=len(VOC_CLASSES),
         proj_dim=128,
         n_way=None,
-        n_shot=3,
+        n_shot=args.n_shot,
         temperature=10,
         support_loader=support_loader,
         device=device,
