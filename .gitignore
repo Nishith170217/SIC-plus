@@ -21,3 +21,8 @@ experiments/support_selection/voc/support_comparison_grids/
 experiments/corruption_robustness/voc/explanations/
 # Generated full-resolution Dogs corruption explanations
 experiments/corruption_robustness/dogs/explanations/
+# Generated Oxford Pets analysis artifacts
+experiments/pets/analysis/*.png
+experiments/pets/analysis/*.pdf
+experiments/pets/analysis/confusion_matrix_counts.csv
+experiments/pets/analysis/confusion_matrix_normalized.csv

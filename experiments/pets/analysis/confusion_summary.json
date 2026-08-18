@@ -1,0 +1,127 @@
+{
+  "test_images": 3669,
+  "correct_predictions": 3408,
+  "incorrect_predictions": 261,
+  "top_confusions": [
+    {
+      "true_class": "american_pit_bull_terrier",
+      "predicted_class": "staffordshire_bull_terrier",
+      "count": 18,
+      "true_class_error_rate": 18.0
+    },
+    {
+      "true_class": "american_pit_bull_terrier",
+      "predicted_class": "american_bulldog",
+      "count": 16,
+      "true_class_error_rate": 16.0
+    },
+    {
+      "true_class": "Ragdoll",
+      "predicted_class": "Birman",
+      "count": 13,
+      "true_class_error_rate": 13.0
+    },
+    {
+      "true_class": "staffordshire_bull_terrier",
+      "predicted_class": "american_pit_bull_terrier",
+      "count": 12,
+      "true_class_error_rate": 13.48314606741573
+    },
+    {
+      "true_class": "staffordshire_bull_terrier",
+      "predicted_class": "american_bulldog",
+      "count": 11,
+      "true_class_error_rate": 12.359550561797752
+    },
+    {
+      "true_class": "basset_hound",
+      "predicted_class": "beagle",
+      "count": 8,
+      "true_class_error_rate": 8.0
+    },
+    {
+      "true_class": "boxer",
+      "predicted_class": "american_bulldog",
+      "count": 6,
+      "true_class_error_rate": 6.0606060606060606
+    },
+    {
+      "true_class": "Birman",
+      "predicted_class": "Ragdoll",
+      "count": 6,
+      "true_class_error_rate": 6.0
+    },
+    {
+      "true_class": "Persian",
+      "predicted_class": "Ragdoll",
+      "count": 5,
+      "true_class_error_rate": 5.0
+    },
+    {
+      "true_class": "Russian_Blue",
+      "predicted_class": "Bombay",
+      "count": 5,
+      "true_class_error_rate": 5.0
+    },
+    {
+      "true_class": "staffordshire_bull_terrier",
+      "predicted_class": "boxer",
+      "count": 4,
+      "true_class_error_rate": 4.49438202247191
+    },
+    {
+      "true_class": "Egyptian_Mau",
+      "predicted_class": "Bengal",
+      "count": 4,
+      "true_class_error_rate": 4.123711340206185
+    },
+    {
+      "true_class": "american_bulldog",
+      "predicted_class": "boxer",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "american_bulldog",
+      "predicted_class": "saint_bernard",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "american_pit_bull_terrier",
+      "predicted_class": "boxer",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "Bengal",
+      "predicted_class": "Maine_Coon",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "British_Shorthair",
+      "predicted_class": "Ragdoll",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "miniature_pinscher",
+      "predicted_class": "staffordshire_bull_terrier",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "wheaten_terrier",
+      "predicted_class": "havanese",
+      "count": 4,
+      "true_class_error_rate": 4.0
+    },
+    {
+      "true_class": "staffordshire_bull_terrier",
+      "predicted_class": "german_shorthaired",
+      "count": 3,
+      "true_class_error_rate": 3.3707865168539324
+    }
+  ]
+}
