@@ -1,0 +1,73 @@
+{
+  "datasets": [
+    {
+      "task": "single-label",
+      "classes": 120,
+      "train_images": 12000,
+      "test_images": 8580,
+      "backbone": "B-cos ResNet50",
+      "n_shot": 3,
+      "dataset": "Stanford Dogs",
+      "primary_metric": "Top-1 accuracy",
+      "primary_score": 78.4149169921875,
+      "top1_accuracy": 78.4149169921875,
+      "top5_accuracy": 96.81817626953125,
+      "map": "",
+      "voc07_map": "",
+      "micro_f1": "",
+      "macro_f1": 77.56160258637003,
+      "balanced_accuracy": 77.95292074339633,
+      "label_accuracy": ""
+    },
+    {
+      "task": "single-label",
+      "classes": 37,
+      "train_images": 3680,
+      "test_images": 3669,
+      "backbone": "B-cos ResNet50",
+      "n_shot": 3,
+      "dataset": "Oxford-IIIT Pet",
+      "primary_metric": "Top-1 accuracy",
+      "primary_score": 92.886345053148,
+      "top1_accuracy": 92.886345053148,
+      "top5_accuracy": 99.31861542654674,
+      "map": "",
+      "voc07_map": "",
+      "micro_f1": "",
+      "macro_f1": 92.7494150042241,
+      "balanced_accuracy": 92.83007695463223,
+      "label_accuracy": ""
+    },
+    {
+      "task": "multi-label",
+      "classes": 20,
+      "train_images": 5011,
+      "test_images": 4952,
+      "backbone": "B-cos DenseNet121",
+      "n_shot": 3,
+      "dataset": "Pascal VOC 2007",
+      "primary_metric": "Sklearn mAP",
+      "primary_score": 86.79529962138082,
+      "top1_accuracy": "",
+      "top5_accuracy": "",
+      "map": 86.79529962138082,
+      "voc07_map": 83.58318923186708,
+      "micro_f1": 76.95731658850647,
+      "macro_f1": 81.11430275222324,
+      "balanced_accuracy": "",
+      "label_accuracy": 97.05449040347081
+    }
+  ],
+  "pets_minus_dogs": {
+    "top1_accuracy": 14.471428060960505,
+    "top5_accuracy": 2.5004391570154922,
+    "macro_f1": 15.187812417854076,
+    "balanced_accuracy": 14.8771562112359
+  },
+  "interpretation_constraints": [
+    "Dogs and Oxford Pets are directly comparable single-label tasks using the same B-cos ResNet50 backbone.",
+    "Pascal VOC is a multi-label task and must be evaluated primarily with mAP rather than Top-1 accuracy.",
+    "VOC label accuracy is not comparable to single-label Top-1 accuracy because most class labels are negative.",
+    "VOC also uses a different backbone, B-cos DenseNet121."
+  ]
+}

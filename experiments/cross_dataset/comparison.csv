@@ -1,0 +1,4 @@
+dataset,task,classes,train_images,test_images,backbone,n_shot,primary_metric,primary_score,top1_accuracy,top5_accuracy,map,voc07_map,micro_f1,macro_f1,balanced_accuracy,label_accuracy
+Stanford Dogs,single-label,120,12000,8580,B-cos ResNet50,3,Top-1 accuracy,78.4149169921875,78.4149169921875,96.81817626953125,,,,77.56160258637003,77.95292074339633,
+Oxford-IIIT Pet,single-label,37,3680,3669,B-cos ResNet50,3,Top-1 accuracy,92.886345053148,92.886345053148,99.31861542654674,,,,92.7494150042241,92.83007695463223,
+Pascal VOC 2007,multi-label,20,5011,4952,B-cos DenseNet121,3,Sklearn mAP,86.79529962138082,,,86.79529962138082,83.58318923186708,76.95731658850647,81.11430275222324,,97.05449040347081
