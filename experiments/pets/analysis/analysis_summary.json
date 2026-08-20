@@ -1,0 +1,75 @@
+{
+  "dataset": "Oxford-IIIT Pet",
+  "test_images": 3669,
+  "n_classes": 37,
+  "n_shot": 3,
+  "best_epoch": 43,
+  "top1_accuracy": 92.886345053148,
+  "top5_accuracy": 99.31861542654674,
+  "macro_f1": 92.7494150042241,
+  "balanced_accuracy": 92.83007695463223,
+  "hardest_classes": [
+    {
+      "class_name": "american_pit_bull_terrier",
+      "class_index": 2,
+      "test_images": 100,
+      "accuracy": 56.99999999999999
+    },
+    {
+      "class_name": "staffordshire_bull_terrier",
+      "class_index": 34,
+      "test_images": 89,
+      "accuracy": 66.29213483146067
+    },
+    {
+      "class_name": "Ragdoll",
+      "class_index": 26,
+      "test_images": 100,
+      "accuracy": 83.0
+    },
+    {
+      "class_name": "British_Shorthair",
+      "class_index": 9,
+      "test_images": 100,
+      "accuracy": 86.0
+    },
+    {
+      "class_name": "miniature_pinscher",
+      "class_index": 21,
+      "test_images": 100,
+      "accuracy": 88.0
+    }
+  ],
+  "easiest_classes": [
+    {
+      "class_name": "newfoundland",
+      "class_index": 22,
+      "test_images": 100,
+      "accuracy": 100.0
+    },
+    {
+      "class_name": "japanese_chin",
+      "class_index": 17,
+      "test_images": 100,
+      "accuracy": 100.0
+    },
+    {
+      "class_name": "yorkshire_terrier",
+      "class_index": 36,
+      "test_images": 100,
+      "accuracy": 99.0
+    },
+    {
+      "class_name": "shiba_inu",
+      "class_index": 31,
+      "test_images": 100,
+      "accuracy": 99.0
+    },
+    {
+      "class_name": "samoyed",
+      "class_index": 29,
+      "test_images": 100,
+      "accuracy": 99.0
+    }
+  ]
+}
