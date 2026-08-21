@@ -208,7 +208,15 @@ def plot_class_explanation(
     axes[0, 1].set_title("Support evidence")
     axes[0, 1].set_xticks(range(model.n_shot + 2))
     axes[0, 1].set_xticklabels(
-        ["Total", "S1", "S2", "S3", "Bias"],
+        (
+            ["Total"]
+            + [
+                f"S{support_number + 1}"
+                for support_number
+                in range(model.n_shot)
+            ]
+            + ["Bias"]
+        ),
         rotation=0,
         fontsize=8,
     )
@@ -303,6 +311,11 @@ def parse_args():
         default=3,
     )
     parser.add_argument(
+        "--n_shot",
+        type=int,
+        default=3,
+    )
+    parser.add_argument(
         "--threshold",
         type=float,
         default=0.5,
@@ -338,6 +351,9 @@ def parse_args():
     if args.max_classes < 1:
         parser.error("--max_classes must be at least 1")
 
+    if args.n_shot < 1:
+        parser.error("--n_shot must be at least 1")
+
     return args
 
 
@@ -365,7 +381,7 @@ def main():
         n_classes=len(VOC_CLASSES),
         proj_dim=128,
         n_way=None,
-        n_shot=3,
+        n_shot=args.n_shot,
         temperature=10,
         support_loader=support_loader,
         device=device,
@@ -439,6 +455,7 @@ def main():
         class_name = VOC_CLASSES[class_index]
         filename = (
             f"sample_{sample_index:04d}_"
+            f"nshot_{args.n_shot}_"
             f"{class_name}_{status}"
         )
 

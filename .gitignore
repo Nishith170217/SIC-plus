@@ -29,3 +29,6 @@ experiments/pets/analysis/confusion_matrix_normalized.csv
 # Generated cross-dataset figures
 experiments/cross_dataset/*.png
 experiments/cross_dataset/*.pdf
+# Generated n-shot explanation figures
+experiments/nshot/voc/explanations/*.png
+experiments/nshot/voc/explanations/*.pdf
