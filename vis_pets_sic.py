@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import torch
 
 from bcos import BcosEncoderWrapper, resnet50_long
+from bcos.pretrained_imagenet import densenet121_long
 from pets_dataset import N_PET_CLASSES, get_pets_dataloader
 from sic import SIC
 
@@ -218,6 +219,11 @@ def parse_args():
         default=3,
     )
     parser.add_argument(
+        "--backbone",
+        choices=["resnet50", "densenet121"],
+        default="resnet50",
+    )
+    parser.add_argument(
         "--percentile",
         type=float,
         default=95.0,
@@ -266,9 +272,13 @@ def main():
 
     class_names = get_class_names(args.data_dir)
 
-    featurizer = BcosEncoderWrapper(
-        resnet50_long(pretrained=False)
-    )
+    if args.backbone == "resnet50":
+        backbone = resnet50_long(pretrained=False)
+    else:
+        backbone = densenet121_long(pretrained=False)
+
+    print(f"Backbone: {args.backbone}")
+    featurizer = BcosEncoderWrapper(backbone)
 
     model = SIC(
         featurizer=featurizer,
@@ -340,6 +350,7 @@ def main():
         )
 
         filename = (
+            f"{args.backbone}_"
             f"sample_{sample_index:04d}_"
             f"target_{safe_name(target_name)}_"
             f"pred_{safe_name(prediction_name)}_"

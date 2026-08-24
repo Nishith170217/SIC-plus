@@ -11,6 +11,7 @@ from torch.nn.functional import one_hot
 from tqdm import tqdm
 
 from bcos import BcosEncoderWrapper, resnet50_long
+from bcos.pretrained_imagenet import densenet121_long
 from pets_dataset import N_PET_CLASSES, get_pets_dataloader
 from sic import SIC
 
@@ -55,6 +56,11 @@ def parse_args():
         default=3,
     )
 
+    parser.add_argument(
+        "--backbone",
+        choices=["resnet50", "densenet121"],
+        default="resnet50",
+    )
     args = parser.parse_args()
 
     if args.batch_size < 1:
@@ -98,9 +104,14 @@ def get_class_names(data_dir):
 
 
 def load_model(args, support_loader, device):
-    featurizer = BcosEncoderWrapper(
-        resnet50_long(pretrained=False)
-    )
+    if args.backbone == "resnet50":
+        backbone = resnet50_long(pretrained=False)
+    else:
+        backbone = densenet121_long(pretrained=False)
+
+    print(f"Backbone: {args.backbone}")
+
+    featurizer = BcosEncoderWrapper(backbone)
 
     model = SIC(
         featurizer=featurizer,

@@ -13,6 +13,7 @@ from sklearn.metrics import balanced_accuracy_score, f1_score
 from tqdm import tqdm
 
 from bcos import BcosEncoderWrapper, resnet50_long
+from bcos.pretrained_imagenet import densenet121_long
 from pets_dataset import N_PET_CLASSES, get_pets_dataloader
 from sic import SIC
 from train_sic_voc import get_optimizer
@@ -42,6 +43,11 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--n_way", type=int, default=30)
     parser.add_argument("--n_shot", type=int, default=3)
+    parser.add_argument(
+        "--backbone",
+        choices=["resnet50", "densenet121"],
+        default="resnet50",
+    )
     parser.add_argument(
         "--accumulation_steps",
         type=int,
@@ -285,9 +291,14 @@ def main():
         f"{validation_batches}"
     )
 
-    featurizer = BcosEncoderWrapper(
-        resnet50_long(pretrained=True)
-    )
+    if args.backbone == "resnet50":
+        backbone = resnet50_long(pretrained=True)
+    else:
+        backbone = densenet121_long(pretrained=True)
+
+    print(f"Backbone: {args.backbone}")
+
+    featurizer = BcosEncoderWrapper(backbone)
 
     model = SIC(
         featurizer=featurizer,
