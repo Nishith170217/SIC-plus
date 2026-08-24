@@ -1,0 +1,44 @@
+{
+  "dataset": "Oxford-IIIT Pet",
+  "controlled_settings": {
+    "epochs": 50,
+    "batch_size": 8,
+    "accumulation_steps": 4,
+    "effective_batch_size": 32,
+    "learning_rate": 0.001,
+    "n_way": 30,
+    "n_shot": 3,
+    "training_gpu": "NVIDIA A100 40GB"
+  },
+  "results": [
+    {
+      "backbone": "ResNet50",
+      "top1_accuracy": 92.886345053148,
+      "top5_accuracy": 99.31861542654674,
+      "macro_f1": 92.7494150042241,
+      "balanced_accuracy": 92.83007695463223,
+      "parameters": 23753024,
+      "training_seconds": 25583,
+      "checkpoint_bytes": 95326152
+    },
+    {
+      "backbone": "DenseNet121",
+      "top1_accuracy": 91.76887435268466,
+      "top5_accuracy": 98.93704006541292,
+      "macro_f1": 91.68405321794224,
+      "balanced_accuracy": 91.71045791896017,
+      "parameters": 7052512,
+      "training_seconds": 20005,
+      "checkpoint_bytes": 28793883
+    }
+  ],
+  "densenet_minus_resnet": {
+    "top1_accuracy": -1.1174707004633433,
+    "top5_accuracy": -0.3815753611338266,
+    "macro_f1": -1.0653617862818692,
+    "balanced_accuracy": -1.1196190356720592,
+    "parameter_reduction_percent": 70.30899307810239,
+    "training_time_reduction_percent": 21.803541414220383,
+    "checkpoint_reduction_percent": 69.79435087236081
+  }
+}

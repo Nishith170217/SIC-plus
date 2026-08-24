@@ -32,3 +32,5 @@ experiments/cross_dataset/*.pdf
 # Generated n-shot explanation figures
 experiments/nshot/voc/explanations/*.png
 experiments/nshot/voc/explanations/*.pdf
+experiments/backbone_comparison/pets/*.png
+experiments/backbone_comparison/pets/*.pdf
